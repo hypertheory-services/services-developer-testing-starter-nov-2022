@@ -8,7 +8,7 @@ public class AccountWithdrawals
     [Fact]
     public void WithhdrawingMoneyDecreasesTheBalance()
     {
-        var account = new BankAccount();
+        var account = new BankAccount(new Mock<INotifyOfOverdrafts>().Object, new Mock<ILogger>().Object);
         var openingBalance = account.GetBalance();
         var amountToWithdraw = 100M;
 
@@ -20,7 +20,7 @@ public class AccountWithdrawals
     [Fact]
     public void WithdrawingAllMoney()
     {
-        var account = new BankAccount();
+        var account = new BankAccount(new Mock<INotifyOfOverdrafts>().Object, new Mock<ILogger>().Object);
         var openingBalance = account.GetBalance();
         var amountToWithdraw = openingBalance;
 
@@ -33,7 +33,7 @@ public class AccountWithdrawals
     [Fact]
     public void OverdraftDoesNotDecreaseBalance()
     {
-        var account = new BankAccount();
+        var account = new BankAccount(new Mock<INotifyOfOverdrafts>().Object, new Mock<ILogger>().Object);
         var openingBalance = account.GetBalance();
         var amountToWithdraw = openingBalance + 1;
 
@@ -41,7 +41,8 @@ public class AccountWithdrawals
         {
             account.Withdraw(amountToWithdraw);
         }
-        catch (AccountOverdraftException ) {
+        catch (AccountOverdraftException)
+        {
             // ignored for this test
         }
         finally
@@ -55,7 +56,7 @@ public class AccountWithdrawals
     [Fact]
     public void OverdraftThrowsAnException()
     {
-        var account = new BankAccount();
+        var account = new BankAccount(new Mock<INotifyOfOverdrafts>().Object, new Mock<ILogger>().Object);
         var openingBalance = account.GetBalance();
         var amountToWithdraw = openingBalance + 1;
 
@@ -64,7 +65,7 @@ public class AccountWithdrawals
             account.Withdraw(amountToWithdraw);
         });
 
-       
+
 
     }
 }

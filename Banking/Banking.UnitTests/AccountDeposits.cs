@@ -12,7 +12,7 @@ public class AccountDeposits
     public void DepositIncreasesTheBalance()
     {
         // Given
-        var account = new BankAccount();
+        var account = new BankAccount(new Mock<INotifyOfOverdrafts>().Object, new Mock<ILogger>().Object);
         var amountToDeposit = 100M;
         var openingBalance = account.GetBalance();
 
