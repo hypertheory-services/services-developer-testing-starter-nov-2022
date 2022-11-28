@@ -17,4 +17,8 @@
     <PackageReference Include="WebApiShared" Version="1.0.0" />
   </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="CoursesApi.IntegrationTests"/>
+    </ItemGroup>
+
 </Project>
