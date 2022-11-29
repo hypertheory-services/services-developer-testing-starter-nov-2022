@@ -13,6 +13,8 @@ public class OfferingsApiAdapter
     {
         var response =await _client.GetAsync($"{courseId}");
 
+        if(response.StatusCode == System.Net.HttpStatusCode.NotFound) { return null; }
+
         response.EnsureSuccessStatusCode(); // anything other than 200-299 
 
         var data = await response.Content.ReadFromJsonAsync<Offerings>();

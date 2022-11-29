@@ -23,7 +23,14 @@ public class OfferingsCatalogApiCall : IProvideOfferings
         {
             // CALLING THE OTHER API
             var response = await _adapter.GetOfferingsForCourseAsync(courseId);
-            return response!.Data;
+            if(response is null)
+            {
+                return new List<DateTime>();
+            }
+            else
+            {
+                return response.Data;
+            }
         }
        
     }

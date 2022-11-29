@@ -54,12 +54,25 @@ public class GettingCourseOfferings : IClassFixture<CourseOfferingsFixture>
             api.Get.Url("/courses/5/offerings");
             api.StatusCodeShouldBe(404);
         });
+
+        _mockServer.ResetMappings();
     }
 
-    [Fact(Skip ="When the offerings api return a 404")]
+    [Fact()]
     public async Task GettingNoOfferingsFromTheApi()
     {
+      
+        _mockServer.Given(Request.Create()
+            .WithPath("/1"))
+            .RespondWith(
+            Response.Create().WithStatusCode(System.Net.HttpStatusCode.NotFound));
 
+
+        var response = await _host.Scenario(api =>
+        {
+            api.Get.Url("/courses/1/offerings");
+            api.StatusCodeShouldBeOk();
+        });
     }
 
     [Fact]
