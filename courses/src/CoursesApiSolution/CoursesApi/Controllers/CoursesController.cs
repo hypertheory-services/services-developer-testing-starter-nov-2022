@@ -67,16 +67,16 @@ public class CoursesController : ControllerBase
 
     }
 
-    //[HttpGet("/courses/{id:int}/offerings")]
+    [HttpGet("/courses/{id:int}/offerings")]
 
-    //[ResponseCache(Duration = 3600, Location = ResponseCacheLocation.Any)]
-    //public async Task<ActionResult> GetOfferingsForCourse(int id)
-    //{
-    //    // TODO talk about a 404 here.
-    //    // check to see if that course exists, if it doesn, return a 404.
-    //    var data = await _offerings.GetOfferingsForCourse(id);
-    //    return Ok(new { Offerings = data });
-    //}
+    [ResponseCache(Duration = 3600, Location = ResponseCacheLocation.Any)]
+    public async Task<ActionResult> GetOfferingsForCourse(int id)
+    {
+        // TODO talk about a 404 here.
+        // check to see if that course exists, if it doesn, return a 404.
+        var data = await _offerings.GetOfferingsForCourse(id);
+        return Ok(new { Offerings = data });
+    }
 
     [HttpGet("/courses/{id:int}", Name ="course-details")]
     public async Task<ActionResult<CourseItemDetailsResponse>> GetCourseById(int id, CancellationToken token)
