@@ -2,6 +2,7 @@
 using Alba;
 
 using CoursesApi.IntegrationTests.CoursesResource.Fixtures;
+using CoursesApi.Models;
 
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
@@ -22,26 +23,26 @@ public class GettingCourseOfferings : IClassFixture<CourseOfferingsFixture>
     [Fact]
     public async Task GettingOfferings()
     {
-        var stubbedData = new OfferingResponse
+        var stubbedData = new Offerings
         {
             Data = new List<DateTime> { new DateTime(1969,4,20,23,59,00) }
         };
         _mockServer.Given(Request.Create()
-            .WithPath("/18"))
+            .WithPath("/2"))
             .RespondWith(
             Response.Create().WithBodyAsJson(stubbedData).WithStatusCode(System.Net.HttpStatusCode.OK));
 
 
         var offeringsResponse = await _host.Scenario(api =>
         {
-            api.Get.Url("/courses/18/offerings");
+            api.Get.Url("/courses/2/offerings");
             api.StatusCodeShouldBeOk();
         });
 
         var responseData = await offeringsResponse.ReadAsJsonAsync <OfferingResponse>();
 
-        //Assert.NotNull(responseData);
-        //Assert.Equal(1969, responseData.Data.First().Year);
+        Assert.NotNull(responseData);
+        Assert.Equal(1969, responseData.Data.First().Year);
 
         _mockServer.ResetMappings(); // 
     }
@@ -84,7 +85,7 @@ public class GettingCourseOfferings : IClassFixture<CourseOfferingsFixture>
 
         var response = await _host.Scenario(api =>
         {
-            api.Get.Url("/courses/33/offerings");
+            api.Get.Url("/courses/2/offerings");
             api.StatusCodeShouldBe(502);
 
         });

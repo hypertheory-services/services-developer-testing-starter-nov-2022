@@ -19,7 +19,7 @@ namespace CoursesApi.IntegrationTests.CoursesResource.Fixtures;
 public class CourseOfferingsFixture : IAsyncLifetime
 {
 
-    private readonly string SQL_IMAGE = "jeffrygonzalez/sdt-nov-2022-sql:20221115192103_Initial";
+    private readonly string SQL_IMAGE = "jeffrygonzalez/sdt-nov-2022-sql:20221115192103_Initial-seeded";
 
 
     public IAlbaHost AlbaHost = null!;
