@@ -11,7 +11,9 @@ public class OfferingsCatalogApiCall : IProvideOfferings
 
     public async Task<List<DateTime>> GetOfferingsForCourse(int courseId)
     {
-       var response = await _adapter.GetOfferingsForCourseAsync(courseId);
-        return response!.Data;
+
+            var response = await _adapter.GetOfferingsForCourseAsync(courseId);
+            return response!.Data;
+       
     }
 }

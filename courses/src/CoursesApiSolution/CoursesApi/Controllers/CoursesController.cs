@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using System.Reflection.Metadata.Ecma335;
 
 namespace CoursesApi.Controllers;
@@ -74,11 +75,22 @@ public class CoursesController : ControllerBase
     {
         // TODO talk about a 404 here.
         // check to see if that course exists, if it doesn, return a 404.
-        var data = await _offerings.GetOfferingsForCourse(id);
-        return Ok(new { Offerings = data });
+        try
+        {
+            var data = await _offerings.GetOfferingsForCourse(id);
+            return Ok(new { Offerings = data });
+
+
+        }
+        catch (HttpRequestException ex) when (ex.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+        {
+
+
+            return StatusCode(502, "The offerings API is down");
+        }
     }
 
-    [HttpGet("/courses/{id:int}", Name ="course-details")]
+    [HttpGet("/courses/{id:int}", Name = "course-details")]
     public async Task<ActionResult<CourseItemDetailsResponse>> GetCourseById(int id, CancellationToken token)
     {
         CourseItemDetailsResponse? response = await _catalog.GetCourseByIdAsync(id, token);
