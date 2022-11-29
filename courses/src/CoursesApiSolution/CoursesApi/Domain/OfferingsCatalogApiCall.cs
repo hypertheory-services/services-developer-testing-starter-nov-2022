@@ -11,16 +11,17 @@ public class OfferingsCatalogApiCall : IProvideOfferings
         _catalog = catalog;
     }
 
-    public async Task<List<DateTime>> GetOfferingsForCourse(int courseId)
+    public async Task<List<DateTime>> GetOfferingsForCourse(int courseId, CancellationToken token)
     {
 
-        var hasCourse = await _catalog.GetCourseByIdAsync(courseId);
+        var hasCourse = await _catalog.GetCourseByIdAsync(courseId, token);
         if (hasCourse == null)
         {
             return null;
         }
         else
         {
+            // CALLING THE OTHER API
             var response = await _adapter.GetOfferingsForCourseAsync(courseId);
             return response!.Data;
         }

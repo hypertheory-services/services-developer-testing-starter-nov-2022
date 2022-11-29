@@ -2,5 +2,5 @@
 
 public interface IProvideOfferings
 {
-    Task<List<DateTime>> GetOfferingsForCourse(int courseId);
+    Task<List<DateTime>> GetOfferingsForCourse(int courseId, CancellationToken token);
 }

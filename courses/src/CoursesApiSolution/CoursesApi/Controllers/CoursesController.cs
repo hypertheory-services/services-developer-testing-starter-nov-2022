@@ -71,14 +71,14 @@ public class CoursesController : ControllerBase
     [HttpGet("/courses/{id:int}/offerings")]
 
     [ResponseCache(Duration = 3600, Location = ResponseCacheLocation.Any)]
-    public async Task<ActionResult> GetOfferingsForCourse(int id)
+    public async Task<ActionResult> GetOfferingsForCourse(int id, CancellationToken token)
     {
         // TODO talk about a 404 here.
         // check to see if that course exists, if it doesn, return a 404.
         try
         {
-            var data = await _offerings.GetOfferingsForCourse(id);
-            return Ok(new { Offerings = data });
+            var data = await _offerings.GetOfferingsForCourse(id, token);
+            return data is not null ? Ok(new { Offerings = data }) : NotFound();
 
 
         }
