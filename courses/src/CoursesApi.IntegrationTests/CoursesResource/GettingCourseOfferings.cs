@@ -46,10 +46,14 @@ public class GettingCourseOfferings : IClassFixture<CourseOfferingsFixture>
         _mockServer.ResetMappings(); // 
     }
 
-    [Fact(Skip ="when there is no course at that url")]
+    [Fact]
     public async Task GettingOfferingsForACourseThatDoesNotExist()
     {
-
+        var response = await _host.Scenario(api =>
+        {
+            api.Get.Url("/courses/5/offerings");
+            api.StatusCodeShouldBe(404);
+        });
     }
 
     [Fact(Skip ="When the offerings api return a 404")]
