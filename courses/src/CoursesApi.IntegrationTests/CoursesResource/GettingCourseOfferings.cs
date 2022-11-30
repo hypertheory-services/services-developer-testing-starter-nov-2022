@@ -39,7 +39,7 @@ public class GettingCourseOfferings : IClassFixture<CourseOfferingsFixture>
             api.StatusCodeShouldBeOk();
         });
 
-        var responseData = await offeringsResponse.ReadAsJsonAsync <OfferingResponse>();
+        var responseData = await offeringsResponse.ReadAsJsonAsync <Offerings>();
 
         Assert.NotNull(responseData);
         Assert.Equal(1969, responseData.Data.First().Year);
@@ -50,6 +50,8 @@ public class GettingCourseOfferings : IClassFixture<CourseOfferingsFixture>
     [Fact]
     public async Task GettingOfferingsForACourseThatDoesNotExist()
     {
+        // we do not own a course #5, so the API should not be called, and a 404 shoud
+        // be immediately returned.
         var response = await _host.Scenario(api =>
         {
             api.Get.Url("/courses/5/offerings");
@@ -62,6 +64,9 @@ public class GettingCourseOfferings : IClassFixture<CourseOfferingsFixture>
     [Fact()]
     public async Task GettingNoOfferingsFromTheApi()
     {
+        // we have that course, but when we call the API, it says there are no offerings
+        // by returning a 404.
+        // GET /1
       
         _mockServer.Given(Request.Create()
             .WithPath("/1"))
@@ -93,7 +98,3 @@ public class GettingCourseOfferings : IClassFixture<CourseOfferingsFixture>
     }
 }
 
-public record OfferingResponse
-{
-    public List<DateTime> Data { get; set; } = new();
-}

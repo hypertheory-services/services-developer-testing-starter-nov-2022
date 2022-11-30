@@ -17,7 +17,7 @@ public class OfferingsCatalogApiCall : IProvideOfferings
         var hasCourse = await _catalog.GetCourseByIdAsync(courseId, token);
         if (hasCourse == null)
         {
-            return null;
+            return null!;
         }
         else
         {

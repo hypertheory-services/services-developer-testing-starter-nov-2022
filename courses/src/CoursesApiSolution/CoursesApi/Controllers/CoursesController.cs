@@ -79,7 +79,8 @@ public class CoursesController : ControllerBase
         {
             var data = await _offerings.GetOfferingsForCourse(id, token);
             // Danged Tri-state logic!
-            return data is not null ? Ok(new { Data = data }) : NotFound();
+            var response = new Offerings {  Data = data };
+            return data is not null ? Ok(response) : NotFound();
 
 
         }
