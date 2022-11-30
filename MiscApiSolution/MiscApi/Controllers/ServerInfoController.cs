@@ -15,12 +15,17 @@ public class ServerInfoController : ControllerBase
     }
 
     [HttpGet("/server-info")]
-    public async Task<ActionResult> GetServerInfo()
+    public async Task<ActionResult> GetServerInfo([FromServices] IProvideLogging _logger)
     {
+        var time = _clock.GetCurrent();
         var response = new ServerInfo
         {
             LastChecked = _clock.GetCurrent()
         };
+        if(time.DayOfWeek== DayOfWeek.Wednesday) 
+        {
+            _logger.LogInformationalMessage(nameof(ServerInfoController), "Request on Wednesday");
+        }
         return Ok(response);
     }
 }
