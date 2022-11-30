@@ -2,7 +2,7 @@
 
 namespace CoursesApi.Models;
 
-
+// "Read Representation" ua -> server
 public record CourseCreateRequest
 {
     [Required, MaxLength(200)]
@@ -11,8 +11,11 @@ public record CourseCreateRequest
     public string Description { get; init; } = string.Empty;
 
 }
+
+// Write Representation server -> client
 public record CoursesResponseModel
 {
+   
     public int NumberOfBackendCourses { get; init; }
     public int NumberOfFrontendCourses { get; init; }
 

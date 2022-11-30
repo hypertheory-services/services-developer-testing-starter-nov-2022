@@ -50,10 +50,7 @@ public class CoursesController : ControllerBase
 
         CourseItemDetailsResponse response = await _catalog.AddCourseAsync(request, CategoryType.Backend);
 
-        // If you are doing a POST to a collection
-        // return 201 created status code
-        // add a location header that says where this new thing lives.
-        // add a copy of what they would get if they went to that location header.
+        
 
         return CreatedAtRoute("course-details", new { id = response.Id }, response);
 
