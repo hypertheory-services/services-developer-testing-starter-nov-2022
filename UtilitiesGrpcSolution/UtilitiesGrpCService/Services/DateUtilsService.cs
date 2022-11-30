@@ -8,9 +8,9 @@ public class DateUtilsService :DateUtils.DateUtilsBase
 {
     private readonly Utils.DateUtilities _utils;
 
-    public DateUtilsService(DateUtilities utils)
+    public DateUtilsService()
     {
-        _utils = utils;
+        _utils = new DateUtilities();
     }
 
     public override Task<DateUtilsResponse> isWeekday(DateUtilsRequest request, ServerCallContext context)

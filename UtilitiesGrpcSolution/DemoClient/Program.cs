@@ -27,4 +27,4 @@ var request = new DateUtilsRequest {  Date = Timestamp.FromDateTime(DateTime.Utc
 
 var answer = await client2.isWeekendAsync(request);
 
-Console.WriteLine("Is it the weekend? ", answer.Ok);
+Console.WriteLine("Is it the weekend? " +  answer.Ok);
