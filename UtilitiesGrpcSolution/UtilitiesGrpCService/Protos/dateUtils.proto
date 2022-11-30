@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "UtilitiesGrpCService";
+
+service DateUtils {
+    rpc isWeekday (DateUtilsRequest) returns (DateUtilsResponse);
+    rpc isWeekend (DateUtilsRequest) returns (DateUtilsResponse);
+}
+
+
+message DateUtilsRequest {
+    google.protobuf.Timestamp date = 1;
+}
+
+message DateUtilsResponse {
+    bool ok = 1;
+}
