@@ -86,7 +86,7 @@ public class CoursesController : ControllerBase
         }
         catch (HttpRequestException ex) when (ex.StatusCode == System.Net.HttpStatusCode.InternalServerError)
         {
-
+            // _exceptionLogger.LogException(blahblahbl);
 
             return StatusCode(502, "The offerings API is down");
         }
